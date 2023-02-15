@@ -1,1 +1,1 @@
-# kafka-to-flink-java
+# Kafka consumer using Flink

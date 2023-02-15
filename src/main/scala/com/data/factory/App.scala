@@ -22,21 +22,10 @@ object App extends Serializable{
 
 
             val kafkaSource = KafkaSource.builder()
-              .setBootstrapServers("localhost:9092")
-              .setTopics("flink-example")
-              .setGroupId("first-topic")
+              .setBootstrapServers("localhost:29092")
+              .setTopics("my-topic")
               .setStartingOffsets(OffsetsInitializer.latest())
               .setValueOnlyDeserializer(new SimpleStringSchema())
-              .build()
-
-            val serializer = KafkaRecordSerializationSchema.builder()
-              .setValueSerializationSchema(new SimpleStringSchema())
-              .setTopic("second-topic")
-              .build()
-
-            val kafkaSink = KafkaSink.builder()
-              .setBootstrapServers("localhost:9092")
-              .setRecordSerializer(serializer)
               .build()
 
             val lines = env.fromSource(kafkaSource, WatermarkStrategy.noWatermarks(), "Kafka Source")
